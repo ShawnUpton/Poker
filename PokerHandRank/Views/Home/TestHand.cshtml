@@ -1,15 +1,13 @@
 ﻿@model EvaluateHandViewModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Test Hand";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1> 
+    <h1 class="display-4">Welcome.  Card values are hard coded in controller.</h1> 
     <div>
         <form asp-action="Index" asp-controller="Home" id="form">
-            <label asp-for="PlayerCount"></label>
-            <input asp-for="PlayerCount" placeholder="Enter Number of Players" />
-            <input class="btn btn-success" id="btnAdd" type="button" value="Deal Cards" />
+            <input class="btn btn-success" id="btnAdd" type="button" value="Deal Test Hand" />
         </form>
         <div id="resultsContainer"></div>  
     </div>
@@ -23,7 +21,7 @@
                 async: true,
                 data: $('#form').serialize(),
                 type: "POST",
-                url: '/Home/AutoDeal',
+                url: '/Home/TestHand',
                 success: function (partialView) {
                     console.log("partialView: " + partialView);
                     $('#resultsContainer').html(partialView);

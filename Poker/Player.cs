@@ -25,6 +25,13 @@ namespace Poker
             PlayerHand = playerHand;
         }
 
+        public void SetCustomHand(Card[] hand)
+        {
+            var playerHand = new Hand();
+            playerHand.Custom(hand);
+            PlayerHand = playerHand;
+        }
+
         public void SetWinner()
         {
             IsWinner = true;

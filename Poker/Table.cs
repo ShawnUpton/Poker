@@ -21,7 +21,7 @@ namespace Poker
             return player;
         }
 
-        public void SetWinner()
+        public void GetWinner()
         {
             var winningPlayer = new Player(); 
    

@@ -20,7 +20,7 @@ namespace Poker.Controllers
 
         public IActionResult Index()
         {
-            return View(new EvaluateHandViewModel()); ;
+            return View(new EvaluateHandViewModel());            
         }
 
         [HttpPost]
@@ -30,12 +30,56 @@ namespace Poker.Controllers
             if (!ModelState.IsValid)
             {
                 return PartialView("Results", model);
-            }  
-            
-            model.PlayPoker();     
+            }
+
+            model.PlayPoker();
 
             return PartialView("Results", model);
         }
+
+#if DEBUG
+        public IActionResult TestHand()
+        {
+            return View(new EvaluateHandViewModel());
+        }
+
+        [HttpPost]
+        [TypeFilter(typeof(CustomExceptionFilter))]
+        public IActionResult TestHand(EvaluateHandViewModel model)
+        {
+            
+            var hands = new Card[][]
+            {
+                new Card[] {
+                    new Card(Suit.Clubs, Rank.Eight),
+                    new Card(Suit.Clubs, Rank.Ten),
+                    new Card(Suit.Clubs, Rank.Three),
+                    new Card(Suit.Clubs, Rank.Nine),
+                    new Card(Suit.Clubs, Rank.Ace),
+                },
+                new Card[] {
+                    new Card(Suit.Clubs, Rank.Three),
+                    new Card(Suit.Diamonds, Rank.Three),
+                    new Card(Suit.Hearts, Rank.Two),
+                    new Card(Suit.Spades, Rank.Three),
+                    new Card(Suit.Spades, Rank.Two),
+                },
+                new Card[] {
+                    new Card(Suit.Clubs, Rank.Eight),
+                    new Card(Suit.Diamonds, Rank.Eight),
+                    new Card(Suit.Spades, Rank.Eight),
+                    new Card(Suit.Hearts, Rank.Eight),
+                    new Card(Suit.Clubs, Rank.Ace),
+                }
+            };
+
+            model.PlayCustomHands(hands);            
+
+            return PartialView("Results", model);
+
+        }
+
+#endif
 
         public IActionResult About()
         {

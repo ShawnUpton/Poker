@@ -53,9 +53,18 @@ namespace Poker
             } 
         }
 
+        public void Custom(Card[] hand)
+        {
+            Cards = new Card[CARDS_IN_HAND]; 
+            for (var i = 0; i < hand.Length; i++)
+            {
+                Cards[i] = hand[i];             
+            }
+        }
+
         public void Evaluate()
         {
-            Rank = HandRank.HighCard;
+            Rank = HandRank.HighCard;             
             var sortedHand = SortHand();
             var rankGroup = sortedHand.GroupBy(card => card.Rank);
             if (IsRoyalFlush(sortedHand))
@@ -75,8 +84,11 @@ namespace Poker
             if (IsTwoPair(rankGroup))
                 return;
             if (IsPair(rankGroup))
-                return;   
-      
+                return;
+
+            Kicker = sortedHand[HIGH_CARD_INDEX].Rank; //Highest card wins tie 
+
+
         }
 
         private Card[] SortHand()

@@ -23,7 +23,7 @@ namespace Poker.Models
         {
             DealCards();      
             EvaluateHands();
-        }
+        } 
 
         public void DealCards()
         {
@@ -35,6 +35,18 @@ namespace Poker.Models
             }
         }
 
+        public void PlayCustomHands(Card[][] hands)
+        {
+            Players.Clear();
+            for (int n = 0; n < hands.Length; n++)
+            {
+                var player = AddPlayer($"Player {n+1}");
+                player.SetCustomHand(hands[n]);   
+            }
+
+            EvaluateHands();
+        }  
+
         public void EvaluateHands()
         {
             foreach(var player in Players)
@@ -44,11 +56,5 @@ namespace Poker.Models
 
             GetWinner();
         }
-
-        public void GetWinner()
-        {
-            SetWinner();
-        }
-    
     }
 }
