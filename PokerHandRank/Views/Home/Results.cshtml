@@ -1,0 +1,25 @@
+﻿@model EvaluateHandViewModel
+<div class="container">
+    <div asp-validation-summary="All" class="alert-danger"></div>
+    @foreach (var player in Model.Players)
+    {
+        var winnerStyle = player.IsWinner ? "text-danger" : null;
+        <div class="row justify-content-start">
+            <div class="col text-left">
+                <h5 class="@winnerStyle">@player.Name - @player.PlayerHand.Rank 
+                @if (player.IsWinner) { <span> - WINNER! </span> } </h5>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var card in player.PlayerHand.Cards)
+            {
+                <div class="col">                    
+                    <img class="img-fluid" alt="@card.Rank of @card.Suit" title="@card.Rank of @card.Suit" src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(card.ImageBytes))"/>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+
+

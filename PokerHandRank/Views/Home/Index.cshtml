@@ -1,0 +1,39 @@
+﻿@model EvaluateHandViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1> 
+    <div>
+        <form asp-action="Index" asp-controller="Home" id="form">
+            <label asp-for="PlayerCount"></label>
+            <input asp-for="PlayerCount" placeholder="Enter Number of Players" />
+            <input class="btn btn-success" id="btnAdd" type="button" value="Deal Cards" />
+        </form>
+        <div id="resultsContainer"></div>        
+@*  *@
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+    $("#btnAdd").on('click', function () {
+            $.ajax({
+                async: true,
+                data: $('#form').serialize(),
+                type: "POST",
+                url: '/Home/AutoDeal',
+                success: function (partialView) {
+                    console.log("partialView: " + partialView);
+                    $('#resultsContainer').html(partialView);
+                },
+                error: function (xhr, status, error) {
+                    var errorMessage = xhr.status + ': ' + xhr.statusText
+                    console.log(errorMessage)
+                    $('#resultsContainer').html("An error has occured.");
+                }
+            });
+        });</script>
+}
